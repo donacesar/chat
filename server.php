@@ -20,14 +20,33 @@ socket_bind($socket, 0, PORT);
 //включаем прослушивание сокета
 socket_listen($socket);
 
+
+// Клиентов может подключиться много, по-этому создаем массив подключенных сокетов
+$clientSocketArray = array($socket);
+
 // Создаем бесконечныц цикл
 while(true) {
-    // Принимаем соединение на сокете
-    $newSocket = socket_accept($socket);
-    // принимаем заголовки клиента
-    $header = socket_read($newSocket, 1024);
-    $chat->sendHeaders($header, $newSocket, 
-        "localhost", PORT);
+
+    $newSocketArray = $clientSocketArray;
+    $nullA = [];
+    socket_select($newSocketArray, $nullA, $nullA, 0, 10);
+
+    if (in_array($socket, $newSocketArray)) {
+        // Принимаем соединение на сокете
+        $newSocket = socket_accept($socket);
+        $clientSocketArray[] = $newSocket;
+
+        // принимаем заголовки клиента
+        $header = socket_read($newSocket, 1024);
+        $chat->sendHeaders($header, $newSocket, "localhost", PORT);
+
+        // Узнаем IP adress клиента
+        socket_getpeername($newSocket, $client_ip_adress); 
+        $connectionACK = $chat->newConnectionACK($client_ip_adress);
+        $chat->send($connectionACK, $clientSocketArray);
+    }
+
+    
 }
 
 // Закрываем сокет для порядка 
