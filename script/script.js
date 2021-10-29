@@ -52,6 +52,9 @@ jQuery(document).ready(function($) {
 			// Если пользователь уже вввел имя, то нет необходимости выводить поле "name" снова
 			$("#chat-user").attr("type","hidden");
 
+			// Очистим поле message от предыдущего значения
+			$("#chat-message").val("");
+
 			socket.send(JSON.stringify(message));
 			return false;
 	});

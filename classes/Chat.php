@@ -127,4 +127,16 @@ class Chat
 
 	 	return $this->seal(json_encode($messageArray));
 	 }
+
+	 //Отрабатывает выход из чата
+	public function newDisconnectedACK($client_ip_address) {
+	 	$message = "Client ". $client_ip_address." disconnected";
+	 	$messageArray = [
+
+	 		"message" => $message,
+	 		"type" => "newConnectionACK"
+	 	];
+	 	$ask = $this->seal(json_encode($messageArray));
+	 	return $ask;
+	 }
 }

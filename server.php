@@ -66,7 +66,7 @@ while(true) {
         
         // 1
         // Проверяем есть ли данные. Если есть - (> 1), нет - 0
-        while(socket_recv($newSocketArrayResource, $socketData, 1024, 0) >= 1) {
+        while(@socket_recv($newSocketArrayResource, $socketData, 1024, 0) >= 1) {
 
             // Сообщение от клиента переводим обратно в JSON(unserialize) и декодируем
             $socketMessage = $chat->unseal($socketData);
@@ -81,6 +81,18 @@ while(true) {
         }
 
         // 2 Обработка тех, кто покинул чат
+        $socketData = @socket_read($newSocketArrayResource, 1024, PHP_NORMAL_READ);
+        if($socketData === false) {
+            // получаем ip адрес пользователя, который вышел из сети 
+            socket_getpeername($newSocketArrayResource, $client_ip_address);
+            // создаем сообщение о выходе, чтобы потом разослать членам чата
+            $connectionACK = $chat->newDisconnectedACK($client_ip_address);
+            $chat->send($connectionACK, $clientSocketArray);
+
+            // В массиве сокетов клиентов ищем оборванный сокет и удаляем его
+            $newSocketArrayIndex = array_search($newSocketArrayResource, $clientSocketArray);
+            unset($clientSocketArray[$newSocketArrayIndex]);
+        }
     }
 
     
