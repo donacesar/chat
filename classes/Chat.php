@@ -4,10 +4,10 @@ class Chat
 {
 	public function sendHeaders($headersText, $newSocket, $host, $port ) {
 
-		//делаем массив для заголовков формата ключь: значение
+		//делаем массив для заголовков формата "ключь: значение"
 		$headers = array();
 
-		// Пришедшую строку с заголовками разбиваем на строки по регулярке и кладем в массив $tmpLine
+		// Пришедшую строку с заголовками разбиваем на строки по регулярке(перевод строки) и кладем в массив $tmpLine
 		$tmpLine = preg_split("/\r\n/", $headersText);
 
 		// Перебираем массив, регуляркой парсим на ключ-значение и кладем в массив $headers 
@@ -38,7 +38,8 @@ class Chat
 
 	}
 
-	 public function newConnectionACK($client_ip_adress) {
+	//Отрабатывает новое(первое) подключение
+	public function newConnectionACK($client_ip_adress) {
 	 	$message = "New client ". $client_ip_adress." connected";
 	 	$messageArray = [
 
@@ -49,9 +50,10 @@ class Chat
 	 	return $ask;
 	 }
 
-	 // Преобразуем архив с сообщением в строку со специальной последовательностью байт
-	 // Таким образом формируем фрейм нужной длины
+	 /* УПАКОВКА. Преобразуем архив с сообщением в строку со специальной последовательностью байт
+	 Таким образом формируем фрейм нужной длины*/
 	 public function seal($socketData) {
+	 	// нефрагментированные фреймы - первый байт 0x81
 	 	$b1 = 0x81;
 	 	$length = strlen($socketData);
 	 	$header = "";
@@ -80,5 +82,49 @@ class Chat
 	 	}
 
 	 	return true;
+	 }
+
+
+	 /* РАСПАКРВКА.  */
+	 public function unseal($socketData) {
+	 	// Определяем длину фрейма (7 бит '7 + 16'бит, '7+ 64)
+	 	$lentgh = ord($socketData[1]) & 127;
+
+	 	// Определяем маску и данные для 3-х типов фреймов
+	 	if ($length == 126) {
+	 		$mask = substr($socketData, 4, 4);
+	 		$data = substr($socketData, 8);
+	 	
+	 	} else if ($length == 127) {
+	 		$mask = substr($socketData, 10, 4);
+	 		$data = substr($socketData, 14);
+	 	
+	 	} else {
+	 		$mask = substr($socketData, 2, 4);
+	 		$data = substr($socketData, 6);
+	 	}
+
+	 	$socketStr = "";
+
+	 	// Побайтово прогоняем данные через маску ^ - логическим ИЛИ
+	 	for ($i=0; $i < strlen($data); $i++) {
+	 		
+	 		// Т.к. маска - 4 байта, то в индексе $mask используем остаток от деления на 4 
+	 		$socketStr .= $data[$i] ^ $mask[$i%4];
+	 	}
+
+
+	 	return $socketStr;
+	 }
+
+	 public function createChatMessage($username, $messageStr) {
+
+	 	$message = "<div>" . $username . " : " . $messageStr . "</div>";
+	 	$messageArray = [
+	 		'type' => 'chat-box',
+	 		'message' => $message
+	 	];
+
+	 	return $this->seal(json_encode($messageArray));
 	 }
 }

@@ -42,4 +42,18 @@ jQuery(document).ready(function($) {
 		message("<div>" + data.type + " - " + data.message + "</div>");
 	};
 
+	// Обработчик отправки сообщения через форму
+	$("#submit").on('click', function() {
+			var message = {
+				chat_message:$("#chat-message").val(),
+				chat_user:$("#chat-user").val(),
+			};
+
+			// Если пользователь уже вввел имя, то нет необходимости выводить поле "name" снова
+			$("#chat-user").attr("type","hidden");
+
+			socket.send(JSON.stringify(message));
+			return false;
+	});
+
 });
