@@ -88,7 +88,7 @@ class Chat
 	 /* РАСПАКРВКА.  */
 	 public function unseal($socketData) {
 	 	// Определяем длину фрейма (7 бит '7 + 16'бит, '7+ 64)
-	 	$lentgh = ord($socketData[1]) & 127;
+	 	$length = ord($socketData[1]) & 127;
 
 	 	// Определяем маску и данные для 3-х типов фреймов
 	 	if ($length == 126) {
