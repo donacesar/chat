@@ -11,7 +11,7 @@ jQuery(document).ready(function($) {
 
 	//Открываем соединение с сервером
 	/* У сокета есть 4 коллбека (описаны ниже) */
-	var socket = new WebSocket("ws://localhost:8090/chat/server.php");
+	var socket = new WebSocket("ws://chat/server.php:8090");
 
 	//Событие при соединении с сервером
 	socket.onopen = function() {
