@@ -15,7 +15,7 @@ $chat = new Chat();
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
 // Конфигурируем сокет: 
-// SQL_SOCKET - устанавливаем уровень протокола на уровне сокета
+// SOL_SOCKET - устанавливаем уровень протокола на уровне сокета
 // Опция SO_REUSEADDR - Сообщает, могут ли локальные адреса использоваться повторно.
 socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
 
@@ -31,10 +31,14 @@ echo "Чат-сервер запущен\n";
 // Клиентов может подключиться много, по-этому создаем массив подключенных сокетов
 $clientSocketArray = array($socket);
 
+//socket_connect($socket, '127.0.0.1', 8090);
+
 // Создаем бесконечный цикл работы сервера
 while(true) {
 
     $newSocketArray = $clientSocketArray;
+
+    // Т.к. socket_select не принимает значения null, создаем пустой массив
     $nullA = [];
     socket_select($newSocketArray, $nullA, $nullA, 0, 10);
 
@@ -66,7 +70,7 @@ while(true) {
         
         // 1
         // Проверяем есть ли данные. Если есть - (> 1), нет - 0
-        while(@socket_recv($newSocketArrayResource, $socketData, 1024, 0) >= 1) {
+        while(socket_recv($newSocketArrayResource, $socketData, 1024, 0) >= 1) {
 
             // Сообщение от клиента переводим обратно в JSON(unserialize) и декодируем
             $socketMessage = $chat->unseal($socketData);

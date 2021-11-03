@@ -78,14 +78,14 @@ class Chat
 
 	 	foreach($clientSocketArray as $clientSocket) {
 	 		// Пишем в сокет
-	 		@socket_write($clientSocket, $message, $messageLength);
+	 		socket_write($clientSocket, $message, $messageLength);
 	 	}
 
 	 	return true;
 	 }
 
 
-	 /* РАСПАКРВКА.  */
+	 /* РАСПАКОВКА.  */
 	 public function unseal($socketData) {
 	 	// Определяем длину фрейма (7 бит '7 + 16'бит, '7+ 64)
 	 	$length = ord($socketData[1]) & 127;
