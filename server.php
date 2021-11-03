@@ -20,7 +20,7 @@ $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
 
 // Привязываем используемый порт к сокету
-socket_bind($socket, '127.0.0.1', PORT);
+socket_bind($socket, '192.168.2.165', PORT);
 
 //включаем прослушивание сокета
 socket_listen($socket);
