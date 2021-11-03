@@ -16,11 +16,11 @@ $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
 // Конфигурируем сокет: 
 // SOL_SOCKET - устанавливаем уровень протокола на уровне сокета
-// Опция SO_REUSEADDR - Сообщает, могут ли локальные адреса использоваться повторно.
+// Опция SO_REUSEADDR - Сообщает, могут ли локальные адреса использоваться повторно. Разрешаем использовать один порт для нескольких соединений
 socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
 
 // Привязываем используемый порт к сокету
-socket_bind($socket, 0, PORT);
+socket_bind($socket, '127.0.0.1', PORT);
 
 //включаем прослушивание сокета
 socket_listen($socket);
@@ -85,7 +85,7 @@ while(true) {
         }
 
         // 2 Обработка тех, кто покинул чат
-        $socketData = @socket_read($newSocketArrayResource, 1024, PHP_NORMAL_READ);
+        $socketData = socket_read($newSocketArrayResource, 1024, PHP_NORMAL_READ);
         if($socketData === false) {
             // получаем ip адрес пользователя, который вышел из сети 
             socket_getpeername($newSocketArrayResource, $client_ip_address);
