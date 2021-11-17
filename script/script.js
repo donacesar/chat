@@ -11,14 +11,14 @@ jQuery(document).ready(function($) {
 
 	//Открываем соединение с сервером
 	/* У сокета есть 4 коллбека (описаны ниже) */
-	var socket = new WebSocket("ws://192.168.2.165:8090/server.php");
+	let socket = new WebSocket("ws://192.168.2.165:8090/server.php");
 
 	//Событие при соединении с сервером
 	socket.onopen = function() {
 		message("<div>[open] Соединение установлено.</div>");
 	};
 
-	//Событие срабатывает при ошибке сщединения с сервером
+	//Событие срабатывает при ошибке соединения с сервером
 	socket.onerror = function(error) {
 		message("<div>[error] Ошибка соединения с сервером. " +  (event.code ? "Код = " + event.code + " " + error.massage : "") + "</div>");
 	};

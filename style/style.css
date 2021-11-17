@@ -1,4 +1,5 @@
 .chat-result {
-	border:  1px solid gray;
-	padding: 10px;
+	border:  1px solid darkcyan;
+	border-radius: 5px;
+	padding: 20px;
 }
