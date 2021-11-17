@@ -84,11 +84,14 @@ while(true) {
         // 1
         // Проверяем есть ли данные. Если есть - (> 1), нет - 0
         $data = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
-        echo "###";
+        echo ">>> ";
         var_dump($data);
-        echo "###";
-        while( $data > 0) {
+        while( $data) {
 
+            // костыль: при отключении клиента $data = 8
+            if ($data == 8) {
+                break;
+            }
             // Сообщение от клиента переводим обратно в JSON(unserialize) и декодируем
             $socketMessage = $chat->unseal($socketData);
             $messageObj = json_decode($socketMessage);
