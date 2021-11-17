@@ -86,6 +86,8 @@ while(true) {
         $data = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
         echo ">>> ";
         var_dump($data);
+        echo ">>> ";
+        var_dump($socketData);
         while( $data) {
 
             // костыль: при отключении клиента $data = 8
@@ -105,7 +107,19 @@ while(true) {
         }
 
         // 2 Обработка тех, кто покинул чат
-        $socketData = socket_read($newSocketArrayResource, 1024, PHP_NORMAL_READ);
+
+        // получаем ip адрес пользователя, который вышел из сети 
+            socket_getpeername($newSocketArrayResource, $client_ip_address);
+            // создаем сообщение о выходе, чтобы потом разослать членам чата
+            $connectionACK = $chat->newDisconnectedACK($client_ip_address);
+            $chat->send($connectionACK, $clientSocketArray);
+
+            // В массиве сокетов клиентов ищем оборванный сокет и удаляем его
+            $newSocketArrayIndex = array_search($newSocketArrayResource, $clientSocketArray);
+            unset($clientSocketArray[$newSocketArrayIndex]);
+        
+        
+        /*$socketData = socket_read($newSocketArrayResource, 1024, PHP_NORMAL_READ);
         if($socketData === false) {
             // получаем ip адрес пользователя, который вышел из сети 
             socket_getpeername($newSocketArrayResource, $client_ip_address);
@@ -115,7 +129,7 @@ while(true) {
 
             // В массиве сокетов клиентов ищем оборванный сокет и удаляем его
             $newSocketArrayIndex = array_search($newSocketArrayResource, $clientSocketArray);
-            unset($clientSocketArray[$newSocketArrayIndex]);
+            unset($clientSocketArray[$newSocketArrayIndex]);*/
         }
     }
 
