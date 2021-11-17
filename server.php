@@ -39,23 +39,26 @@ echo "Чат-сервер запущен\n";
 
 // Клиентов может подключиться много, по-этому создаем массив подключенных сокетов
 
-$clientSocketArray = array($socket);
+$clientSocketArray = array();
 
 // Создаем бесконечный цикл работы сервера
 while(true) {
 
     $newSocketArray = $clientSocketArray;
+    $newSocketArray[] = $socket;
 
     // Т.к. socket_select не принимает значения null, создаем пустой массив
     // $write = $except = null;
-    $nullA = []; 
+    $nullA = [];
+    // Ожидаем сокеты доступные для чтения 
     socket_select($newSocketArray, $nullA, $nullA, 0, 10);
 
-    if (in_array($socket, $newSocketArray)) {
+    if (in_array($socket, $newSocketArray)) { //есть новое соединение
 
         // Принимаем соединение на сокете
         $newSocket = socket_accept($socket);
         $clientSocketArray[] = $newSocket;
+        unset($newSocketArray[array_search($socket, $newSocketArray )]);
 
         // принимаем заголовки клиента
         $header = socket_read($newSocket, 1024);
@@ -67,7 +70,6 @@ while(true) {
         echo "#######\n";
         var_dump($clientSocketArray);
         echo "#######\n";
-        unset($clientSocketArray[0]);
 
         $chat->send($connectionACK, $clientSocketArray);
 
