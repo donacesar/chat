@@ -39,7 +39,8 @@ echo "Чат-сервер запущен\n";
 
 // Клиентов может подключиться много, по-этому создаем массив подключенных сокетов
 
-$clientSocketArray = array($socket);
+//$clientSocketArray = array($socket);
+$clientSocketArray = array();
 
 // Создаем бесконечный цикл работы сервера
 while(true) {
@@ -67,7 +68,7 @@ while(true) {
         echo "#######\n";
         var_dump($clientSocketArray);
         echo "#######\n";
-        
+
         $chat->send($connectionACK, $clientSocketArray);
 
         /*Чистим массив $newSocketArray от отработанных сокетов*/
