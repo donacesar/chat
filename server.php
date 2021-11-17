@@ -129,8 +129,8 @@ while(true) {
 
             // В массиве сокетов клиентов ищем оборванный сокет и удаляем его
             $newSocketArrayIndex = array_search($newSocketArrayResource, $clientSocketArray);
-            unset($clientSocketArray[$newSocketArrayIndex]);*/
-        }
+            unset($clientSocketArray[$newSocketArrayIndex]);
+        }*/
     }
 
     
