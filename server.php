@@ -6,13 +6,13 @@ require_once ('classes/Chat.php');
 
 // Переопределяем вывод 
 $logDir = __DIR__ . '/logs';
-ini_set('error_log', $logDir . '/error_log');
-fclose(STDIN);
+ini_set('error_log', '/error_log');
+/*fclose(STDIN);
 fclose(STDOUT);
 fclose(STDERR);
 $STDIN = fopen('/dev/null', 'r');
 $STDOUT = fopen($logDir . '/output.log', 'a');
-$STDOUT = fopen($logDir . '/error.log', 'a');
+$STDOUT = fopen($logDir . '/error.log', 'a');*/
 
 $chat = new Chat();
 
