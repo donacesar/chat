@@ -64,6 +64,10 @@ while(true) {
         // Узнаем IP adress клиента
         socket_getpeername($newSocket, $client_ip_adress); 
         $connectionACK = $chat->newConnectionACK($client_ip_adress);
+        echo "#######\n";
+        var_dump($clientSocketArray);
+        echo "#######\n";
+        
         $chat->send($connectionACK, $clientSocketArray);
 
         /*Чистим массив $newSocketArray от отработанных сокетов*/
