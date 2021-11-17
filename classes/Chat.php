@@ -79,9 +79,9 @@ class Chat
 
 	 	foreach($clientSocketArray as $clientSocket) {
 	 		// Пишем в сокет
-	 		socket_write($clientSocket, $message, $messageLength);
+	 		$x = socket_write($clientSocket, $message, $messageLength);
 	 		var_dump($clientSocket);
-	 		var_dump($message);
+	 		var_dump($x);
 	 	}
 
 	 	return true;
