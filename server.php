@@ -67,7 +67,7 @@ while(true) {
         echo "#######\n";
         var_dump($clientSocketArray);
         echo "#######\n";
-        unset($clientSoocketArray[0]);
+        unset($clientSocketArray[0]);
 
         $chat->send($connectionACK, $clientSocketArray);
 
