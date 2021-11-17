@@ -10,9 +10,9 @@ ini_set('error_log', $logDir);
 fclose(STDIN);
 fclose(STDOUT);
 fclose(STDERR);
-$STDIN = fopen($logDir . '/dev/null', 'r');
-$STDOUT = fopen($logDir . '/output.log', 'ab');
-$STDOUT = fopen($logDir . '/error.log', 'ab');
+$STDIN = fopen('/dev/null', 'r');
+$STDOUT = fopen($logDir . '/output.log', 'a');
+$STDOUT = fopen($logDir . '/error.log', 'a');
 
 $chat = new Chat();
 
