@@ -39,7 +39,7 @@ jQuery(document).ready(function($) {
 	socket.onmessage = function(event) {
 		// Получаем данные в формате JSON и декодируем
 		var data = JSON.parse(event.data);
-		message("<div>" + data.type + " - " + data.message + "</div>");
+		message("<div>" + data.message + "</div>");
 	};
 
 	// Обработчик отправки сообщения через форму

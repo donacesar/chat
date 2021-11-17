@@ -40,7 +40,7 @@ class Chat
 
 	//Отрабатывает новое(первое) подключение
 	public function newConnectionACK($client_ip_adress) {
-	 	$message = "New client ". $client_ip_adress." connected";
+	 	$message = "$client_ip_adress." connected";
 	 	$messageArray = [
 
 	 		"message" => $message,

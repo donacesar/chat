@@ -1,8 +1,18 @@
 <?php
 //определяем порт на каком будет работать сервер
-define('PORT', "8090");
+define('PORT', '8090');
 
-require_once ("classes/Chat.php");
+require_once ('classes/Chat.php');
+
+// Переопределяем вывод 
+$logDir = __DIR__ . '/logs';
+ini_set('error_log', $logDir);
+fclose(STDIN);
+fclose(STDOUT);
+fclose(STDERR);
+$STDIN = fopen($logDir . '/dev/null', 'r');
+$STDOUT = fopen($logDir . '/output.log', 'ab');
+$STDOUT = fopen($logDir . '/error.log', 'ab');
 
 $chat = new Chat();
 
@@ -39,7 +49,8 @@ while(true) {
     $newSocketArray = $clientSocketArray;
 
     // Т.к. socket_select не принимает значения null, создаем пустой массив
-    $nullA = [];
+    // $write = $except = null;
+    $nullA = []; 
     socket_select($newSocketArray, $nullA, $nullA, 0, 10);
 
     if (in_array($socket, $newSocketArray)) {
