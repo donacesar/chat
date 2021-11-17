@@ -67,16 +67,13 @@ while(true) {
         // Узнаем IP adress клиента
         socket_getpeername($newSocket, $client_ip_adress); 
         $connectionACK = $chat->newConnectionACK($client_ip_adress);
-        echo "#######\n";
-        var_dump($clientSocketArray);
-        echo "#######\n";
 
         $chat->send($connectionACK, $clientSocketArray);
 
         /*Чистим массив $newSocketArray от отработанных сокетов*/
 
         // Находим индекс отработанного сокета 
-        $newSocketArrayIndex = array_search($socket, $newSocketArray);
+        $newSocketArrayIndex = array_search($newSocket, $newSocketArray);
 
         // Удаляем сокет из массива по найденному индексу
         unset($newSocketArray[$newSocketArrayIndex]);
