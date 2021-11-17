@@ -30,7 +30,7 @@ $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
 
 // Привязываем используемый порт к сокету
-socket_bind($socket, '127.0.0.1', PORT);
+socket_bind($socket, '0.0.0.0', PORT);
 
 //включаем прослушивание сокета
 socket_listen($socket);
@@ -40,6 +40,8 @@ echo "Чат-сервер запущен\n";
 
 // Клиентов может подключиться много, по-этому создаем массив подключенных сокетов
 $clientSocketArray = array($socket);
+
+socket_connect($socket, '0.0.0.0', 8090);
 
 // Создаем бесконечный цикл работы сервера
 while(true) {
