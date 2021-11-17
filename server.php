@@ -38,7 +38,9 @@ socket_listen($socket);
 echo "Чат-сервер запущен\n";
 
 // Клиентов может подключиться много, по-этому создаем массив подключенных сокетов
-$clientSocketArray = array($socket);
+
+//$clientSocketArray = array($socket);
+$clientSocketArray = [];
 
 // Создаем бесконечный цикл работы сервера
 while(true) {
