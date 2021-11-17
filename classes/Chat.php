@@ -74,11 +74,14 @@ class Chat
 
 	 // Передаем информацию в клиетскую часть
 	 public function send($message, $clientSocketArray) {
+
 	 	$messageLength = strlen($message);
 
 	 	foreach($clientSocketArray as $clientSocket) {
 	 		// Пишем в сокет
 	 		socket_write($clientSocket, $message, $messageLength);
+	 		var_dump($clientSocket);
+	 		var_dump($message);
 	 	}
 
 	 	return true;
