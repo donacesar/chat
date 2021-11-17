@@ -1,3 +1,0 @@
-[17-Nov-2021 10:13:05 Europe/Moscow] PHP Warning:  fopen(/var/www/chat/logs/dev/null): failed to open stream: No such file or directory in /var/www/chat/server.php on line 13
-[17-Nov-2021 10:13:05 Europe/Moscow] PHP Warning:  fopen(/var/www/chat/logs/output.log): failed to open stream: No such file or directory in /var/www/chat/server.php on line 14
-[17-Nov-2021 10:13:05 Europe/Moscow] PHP Warning:  fopen(/var/www/chat/logs/error.log): failed to open stream: No such file or directory in /var/www/chat/server.php on line 15

@@ -6,7 +6,7 @@ require_once ('classes/Chat.php');
 
 // Переопределяем вывод 
 $logDir = __DIR__ . '/logs';
-ini_set('error_log', $logDir);
+ini_set('error_log', $logDir . '/error_log');
 fclose(STDIN);
 fclose(STDOUT);
 fclose(STDERR);
