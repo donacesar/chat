@@ -38,7 +38,6 @@ socket_listen($socket);
 echo "Чат-сервер запущен\n";
 
 // Клиентов может подключиться много, по-этому создаем массив подключенных сокетов
-
 $clientSocketArray = array();
 
 // Создаем бесконечный цикл работы сервера
@@ -82,16 +81,12 @@ while(true) {
     foreach($newSocketArray as $newSocketArrayResource) {
         
         // 1
-        // Проверяем есть ли данные. Если есть - (> 1), нет - 0
-        $data = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
-        echo ">>> ";
-        var_dump($data);
-        echo ">>> ";
-        var_dump($socketData);
-        while( $data) {
+        // Проверяем количество поступивших байт (есть ли данные. Если есть - (> 1), нет - 0)в
+        $dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
+        while( $dataSize) {
 
-            // костыль: при отключении клиента $data = 8
-            if ($data == 8) {
+            // костыль: при закрытии окна браузера клиента передается $dataSize = 8 байт
+            if ($dataSize == 8) {
                 break;
             }
             // Сообщение от клиента переводим обратно в JSON(unserialize) и декодируем
@@ -117,7 +112,7 @@ while(true) {
             // В массиве сокетов клиентов ищем оборванный сокет и удаляем его
             $newSocketArrayIndex = array_search($newSocketArrayResource, $clientSocketArray);
             unset($clientSocketArray[$newSocketArrayIndex]);
-        
+
         
         /*$socketData = socket_read($newSocketArrayResource, 1024, PHP_NORMAL_READ);
         if($socketData === false) {

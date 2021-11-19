@@ -38,13 +38,13 @@ jQuery(document).ready(function($) {
 	//Событие обрабатывает Сообщение
 	socket.onmessage = function(event) {
 		// Получаем данные в формате JSON и декодируем
-		var data = JSON.parse(event.data);
+		let data = JSON.parse(event.data);
 		message("<div>" + data.message + "</div>");
 	};
 
 	// Обработчик отправки сообщения через форму
 	$("#submit").on('click', function() {
-			var message = {
+			let message = {
 				chat_message:$("#chat-message").val(),
 				chat_user:$("#chat-user").val(),
 			};

@@ -1,4 +1,12 @@
-.chat-result {
+.chat-wrapper {
 	border:  3px solid darkcyan;
 	border-radius: 10px;
 	padding: 20px;
+}
+
+.chat-result {
+	padding-top: 20px;
+	border: 1px solid #008b8b6e;
+	border-radius: 5px;
+}
+	
