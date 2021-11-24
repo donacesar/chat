@@ -27,8 +27,7 @@ jQuery(document).ready(function($) {
 	socket.onclose = function() {
 		if (event.wasClean) {
 			//если соединение закрыто чисто : 
-			//message(`<div>[close] Соединение закрыто. Код = ${event.code} причина = ${event.reason}</div>`);
-			message(`<div>[close] Клиент вот так вот взял и вышел!!!</div>`);
+			message(`<div>[close] Соединение закрыто. Код = ${event.code} причина = ${event.reason}</div>`);
 		} else {
 			// например, сервер убил процесс или сеть недоступна
 			// обычно в этом случае event.code 1006
@@ -58,6 +57,11 @@ jQuery(document).ready(function($) {
 
 			socket.send(JSON.stringify(message));
 			return false;
+	});
+
+	// Обработчик закрытия вкладки с чатом на клиенте
+	window.addEventListenr('beforeunload', fonction(e) {
+		message(`<div>[close] Клиент вот так вот взял и закрыл вкладку!!!</div>`);
 	});
 
 });
