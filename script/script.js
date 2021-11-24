@@ -26,8 +26,9 @@ jQuery(document).ready(function($) {
 	//Событие срабатывает при закрытии соединения
 	socket.onclose = function() {
 		if (event.wasClean) {
-			//если соединение закрытщ чисто : 
-			message(`<div>[close] Соединение закрыто. Код = ${event.code} причина = ${event.reason}</div>`);
+			//если соединение закрыто чисто : 
+			//message(`<div>[close] Соединение закрыто. Код = ${event.code} причина = ${event.reason}</div>`);
+			message(`<div>[close] Клиент вот так вот взял и вышел!!!</div>`);
 		} else {
 			// например, сервер убил процесс или сеть недоступна
 			// обычно в этом случае event.code 1006
