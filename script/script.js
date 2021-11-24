@@ -60,8 +60,12 @@ jQuery(document).ready(function($) {
 	});
 
 	// Обработчик закрытия вкладки с чатом на клиенте
-	window.addEventListener('beforeunload', fonction(e) {
+	window.onbeforeunload = function() {
 		message(`<div>[close] Клиент вот так вот взял и закрыл вкладку!!!</div>`);
-	}, false);
+  		return "Данные не сохранены. Точно перейти?";
+	};
+	/*window.addEventListener('beforeunload', fonction(e) {
+		message(`<div>[close] Клиент вот так вот взял и закрыл вкладку!!!</div>`);
+	}, false);*/
 
 });
