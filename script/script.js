@@ -10,7 +10,8 @@ function message(text, code) {
 
 // Проверка соединения с сервером 
 function testConnection(test_code) {
-	jQuery('#chat-result').append('### : ', test_code);
+	test_code = '<div>### : ' + test_code + '</div>';
+	jQuery('#chat-result').append(test_code);
 }
 
 
@@ -67,5 +68,5 @@ jQuery(document).ready(function($) {
 			return false;
 	});
 
-	setInterval(testConnection(socket.readyStatec), 100000);
+	setInterval(testConnection(socket.readyStatec), 5000);
 });
