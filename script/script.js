@@ -73,5 +73,5 @@ jQuery(document).ready(function($) {
 		console.log(socket.readyState);
 	}
 
-	setInterval(func, 5000);
+	setInterval(func, 1000);
 });
