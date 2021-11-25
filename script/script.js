@@ -9,7 +9,7 @@ function message(text, code) {
 }
 
 // Проверка соединения с сервером 
-function testConnection(test_code) {
+const testConnection = (test_code) => {
 	test_code = '<div>### : ' + test_code + '</div>';
 	jQuery('#chat-result').append(test_code);
 }
