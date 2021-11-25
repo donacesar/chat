@@ -69,8 +69,8 @@ jQuery(document).ready(function($) {
 	});
 
 	const func = () => {
-		testConnection(socket.readyStatec);
-		console.log(socket.readyStatec);
+		testConnection(socket.readyState);
+		console.log(socket.readyState);
 	}
 
 	setInterval(func, 5000);
