@@ -65,7 +65,7 @@ jQuery(document).ready(function($) {
 	const func = () => {
 		let pingMessage = {
 			chat_message: 'ping',
-			char_user:$('#chat-user').val()
+			chat_user:$('#chat-user').val()
 		};
 		socket.send(JSON.stringify(pingMessage));
 	}
