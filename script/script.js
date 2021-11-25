@@ -1,9 +1,9 @@
 
 //блок для вывода информации на экран
-function message(text) {
+function message(text, code) {
 	text = '<div>' + text + '</div>';
 	//выводим в chat-result код состояния и текст сообщения 
-	$('#chat-result').append("Код состояния" + socket.readyState);
+	jQuery('#chat-result').append("Код состояния" + code);
 	jQuery('#chat-result').append(text);
 }
 
@@ -17,23 +17,23 @@ jQuery(document).ready(function($) {
 
 	//Событие при соединении с сервером
 	socket.onopen = function() {
-		message("[open] Соединение установлено.");
+		message("[open] Соединение установлено.", socket.readyState);
 	};
 
 	//Событие срабатывает при ошибке соединения с сервером
 	socket.onerror = function(error) {
-		message("[error] Ошибка соединения с сервером. " +  (event.code ? "Код = " + event.code + " " + error.massage : ""));
+		message("[error] Ошибка соединения с сервером. " +  (event.code ? "Код = " + event.code + " " + error.massage : ""), socket.readyState);
 	};
 
 	//Событие срабатывает при закрытии соединения
 	socket.onclose = function() {
 		if (event.wasClean) {
 			//если соединение закрыто чисто : 
-			message(`[close] Соединение закрыто. Код = ${event.code} причина = ${event.reason}`);
+			message(`[close] Соединение закрыто. Код = ${event.code} причина = ${event.reason}`, socket.readyState);
 		} else {
 			// например, сервер убил процесс или сеть недоступна
 			// обычно в этом случае event.code 1006
-			message(`[close] Соединение прервано. Код = ${event.code}`);
+			message(`[close] Соединение прервано. Код = ${event.code}`, socket.readyState);
 		}
 	};
 
@@ -41,7 +41,7 @@ jQuery(document).ready(function($) {
 	socket.onmessage = function(event) {
 		// Получаем данные в формате JSON и декодируем
 		let data = JSON.parse(event.data);
-		message(data.message);
+		message(data.message, socket.readyState);
 	};
 
 	// Обработчик отправки сообщения через форму
