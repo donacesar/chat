@@ -96,7 +96,8 @@ while(true) {
             // Проверяем ping клиента
             if ($messageObj->chat_message === 'ping') {
                 echo "ping \n";
-                $chatMessage = $chat->createChatMessage($messageObj->chat_user, 'pong to ' . $client_ip_adress);
+                socket_getpeername($socket, $ip_address);
+                $chatMessage = $chat->createChatMessage($messageObj->chat_user, 'pong to ' . $ip_adress);
                 $simArr = [];
                 $simArr[] = $newSocketArrayResource;
                 $chat->send($chatMessage, $simArr);
