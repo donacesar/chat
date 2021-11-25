@@ -77,7 +77,6 @@ while(true) {
         // Удаляем сокет из массива по найденному индексу
         unset($newSocketArray[$newSocketArrayIndex]);
     }
-
     foreach($newSocketArray as $newSocketArrayResource) {
         
         // 1
@@ -97,7 +96,7 @@ while(true) {
             // Проверяем ping клиента
             if ($messageObj->chat_message === 'ping') {
                 echo "ping \n";
-                $chatMessage = $chat->createChatMessage($messageObj->chat_user, 'pong');
+                $chatMessage = $chat->createChatMessage($messageObj->chat_user, 'pong to ' . $client_ip_address);
                 /*$simArr = [];
                 $simArr[] = $newSocketArrayResource;*/
                 $chat->send($chatMessage, $clientSocketArray);
