@@ -10,7 +10,7 @@ function message(text, code) {
 
 // Проверка соединения с сервером 
 function testConnection() {
-	JQuery('#chat-result').append('### : ', socket.readyStatec);
+	jQuery('#chat-result').append('### : ', socket.readyStatec);
 }
 
 
