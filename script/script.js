@@ -1,7 +1,9 @@
 
 //блок для вывода информации на экран
 function message(text) {
-	//выводим в chat-result текст сообщения
+	text = '<div>' + text + '</div>';
+	//выводим в chat-result код состояния и текст сообщения 
+	$('#chat-result').append("Код состояния" + socket.readyState);
 	jQuery('#chat-result').append(text);
 }
 
@@ -15,19 +17,19 @@ jQuery(document).ready(function($) {
 
 	//Событие при соединении с сервером
 	socket.onopen = function() {
-		message("<div>[open] Соединение установлено.</div>");
+		message("[open] Соединение установлено.");
 	};
 
 	//Событие срабатывает при ошибке соединения с сервером
 	socket.onerror = function(error) {
-		message("<div>[error] Ошибка соединения с сервером. " +  (event.code ? "Код = " + event.code + " " + error.massage : "") + "</div>");
+		message("[error] Ошибка соединения с сервером. " +  (event.code ? "Код = " + event.code + " " + error.massage : ""));
 	};
 
 	//Событие срабатывает при закрытии соединения
 	socket.onclose = function() {
 		if (event.wasClean) {
 			//если соединение закрыто чисто : 
-			message(`<div>[close] Соединение закрыто. Код = ${event.code} причина = ${event.reason}</div>`);
+			message(`[close] Соединение закрыто. Код = ${event.code} причина = ${event.reason}`);
 		} else {
 			// например, сервер убил процесс или сеть недоступна
 			// обычно в этом случае event.code 1006
@@ -39,7 +41,7 @@ jQuery(document).ready(function($) {
 	socket.onmessage = function(event) {
 		// Получаем данные в формате JSON и декодируем
 		let data = JSON.parse(event.data);
-		message("<div>" + data.message + "</div>");
+		message(data.message);
 	};
 
 	// Обработчик отправки сообщения через форму
@@ -58,14 +60,4 @@ jQuery(document).ready(function($) {
 			socket.send(JSON.stringify(message));
 			return false;
 	});
-
-	// Обработчик закрытия вкладки с чатом на клиенте
-	window.onbeforeunload = function() {
-		message(`<div>[close] Клиент вот так вот взял и закрыл вкладку!!!</div>`);
-  		return "Данные не сохранены. Точно перейти?";
-	};
-	/*window.addEventListener('beforeunload', fonction(e) {
-		message(`<div>[close] Клиент вот так вот взял и закрыл вкладку!!!</div>`);
-	}, false);*/
-
 });
