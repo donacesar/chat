@@ -101,6 +101,8 @@ while(true) {
                 /*$simArr = [];
                 $simArr[] = $newSocketArrayResource;*/
                 $chat->send('pong', $clientSocketArray);
+
+                break;
             }
 
 
