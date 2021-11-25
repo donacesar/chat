@@ -93,6 +93,16 @@ while(true) {
             $socketMessage = $chat->unseal($socketData);
             $messageObj = json_decode($socketMessage);
 
+
+            // Проверяем ping клиента
+            if ($messageObj->chat_message === 'ping') {
+                $chat->send('pong', $newSocketArrayResource);
+            }
+
+
+
+
+
             // Сообщение готовое к отправке пользователям
             $chatMessage = $chat->createChatMessage($messageObj->chat_user, $messageObj->chat_message);
 
