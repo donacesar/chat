@@ -96,6 +96,7 @@ while(true) {
 
             // Проверяем ping клиента
             if ($messageObj->chat_message === 'ping') {
+                echo "ping \n";
                 $simArr = [];
                 $simArr[] = $newSocketArrayResource;
                 $chat->send('pong', $simArr);
