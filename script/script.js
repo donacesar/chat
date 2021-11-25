@@ -64,7 +64,7 @@ jQuery(document).ready(function($) {
 	// Проверка соединения с сервером
 	const func = () => {
 		let pingMessage = {
-			chat_message: ping,
+			chat_message: 'ping',
 			char_user:$('#chat-user').val()
 		};
 		socket.send(JSON.stringify(pingMessage));
