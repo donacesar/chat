@@ -1,19 +1,11 @@
 /* Клиент чата */
 
 // Блок для вывода информации на экран
-function message(text, code) {
+function message(text) {
 	text = '<div>' + text + '</div>';
-	//выводим в chat-result код состояния и текст сообщения 
-	jQuery('#chat-result').append("Код состояния : " + code);
+	//выводим в chat-result текст сообщения 
 	jQuery('#chat-result').append(text);
 }
-
-// Проверка соединения с сервером 
-function testConnection (test_code) {
-	test_code = '<div>### : ' + test_code + '</div>';
-	jQuery('#chat-result').append(test_code);
-}
-
 
 
 jQuery(document).ready(function($) {
@@ -24,23 +16,23 @@ jQuery(document).ready(function($) {
 
 	// Событие при соединении с сервером
 	socket.onopen = function() {
-		message("[open] Соединение установлено.", socket.readyState);
+		message("[open] Соединение установлено.");
 	};
 
 	// Событие срабатывает при ошибке соединения с сервером
 	socket.onerror = function(error) {
-		message("[error] Ошибка соединения с сервером. " +  (event.code ? "Код = " + event.code + " " + error.massage : ""), socket.readyState);
+		message("[error] Ошибка соединения с сервером. " +  (event.code ? "Код = " + event.code + " " + error.massage : ""));
 	};
 
 	// Событие срабатывает при закрытии соединения
 	socket.onclose = function() {
 		if (event.wasClean) {
 			//если соединение закрыто чисто : 
-			message(`[close] Соединение закрыто. Код = ${event.code} причина = ${event.reason}`, socket.readyState);
+			message(`[close] Соединение закрыто. Код = ${event.code} причина = ${event.reason}`);
 		} else {
 			// например, сервер убил процесс или сеть недоступна(когда TCP протокол вернет ошибку)
 			// обычно в этом случае event.code 1006
-			message(`[close] Соединение прервано. Код = ${event.code}`, socket.readyState);
+			message(`[close] Соединение прервано. Код = ${event.code}`);
 		}
 	};
 
@@ -48,7 +40,7 @@ jQuery(document).ready(function($) {
 	socket.onmessage = function(event) {
 		// Получаем данные в формате JSON и декодируем
 		let data = JSON.parse(event.data);
-		message(data.message, socket.readyState);
+		message(data.message);
 	};
 
 	// Обработчик отправки сообщения через форму
@@ -68,9 +60,14 @@ jQuery(document).ready(function($) {
 			return false;
 	});
 
+
+	// Проверка соединения с сервером
 	const func = () => {
-		/*testConnection(socket.readyState);*/
-		console.log(socket.readyState);
+		let pingMessage = {
+			chat_message: ping,
+			char_user:$('#chat-user').val()
+		};
+		socket.send(JSON.stringify(pingMessage));
 	}
 
 	setInterval(func, 1000);
