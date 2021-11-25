@@ -57,6 +57,9 @@ while(true) {
         // Принимаем соединение на сокете
         $newSocket = socket_accept($socket);
         $clientSocketArray[] = $newSocket;
+
+        var_dump($clientSocketArray);
+
         unset($newSocketArray[array_search($socket, $newSocketArray )]);
 
         // принимаем заголовки клиента

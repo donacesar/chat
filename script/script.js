@@ -70,5 +70,5 @@ jQuery(document).ready(function($) {
 		socket.send(JSON.stringify(pingMessage));
 	}
 
-	setInterval(func, 3000);
+	//setInterval(func, 3000);
 });
