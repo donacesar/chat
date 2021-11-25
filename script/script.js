@@ -69,7 +69,7 @@ jQuery(document).ready(function($) {
 	});
 
 	const func = () => {
-		testConnection(socket.readyState);
+		/*testConnection(socket.readyState);*/
 		console.log(socket.readyState);
 	}
 
