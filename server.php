@@ -52,6 +52,8 @@ while(true) {
     // Ожидаем сокеты доступные для чтения 
     socket_select($newSocketArray, $nullA, $nullA, 0, 10);
 
+    echo "socket_select отработал";
+
     if (in_array($socket, $newSocketArray)) { //есть новое соединение
 
         // Принимаем соединение на сокете
@@ -60,7 +62,7 @@ while(true) {
 
         var_dump($clientSocketArray);
 
-        unset($newSocketArray[array_search($socket, $newSocketArray )]);
+        unset($newSocketArray[array_search($socket, $newSocketArray)]);
 
         // принимаем заголовки клиента
         $header = socket_read($newSocket, 1024);
