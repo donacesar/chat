@@ -29,7 +29,7 @@ $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 // Опция SO_REUSEADDR - Сообщает, могут ли локальные адреса использоваться повторно. Разрешаем использовать один порт для нескольких соединений
 socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
 
-// Привязываем используемый порт к сокету
+// Привязываем используемый адрес и порт к сокету
 socket_bind($socket, '0.0.0.0', PORT);
 
 //включаем прослушивание сокета
@@ -43,6 +43,7 @@ $clientSocketArray = array();
 // Создаем бесконечный цикл работы сервера
 while(true) {
 
+    // Каждую итерацию записываем мастер-сокет $socket в массив, т.к. После выполнения функции socket_select(), в этом массиве будут содержаться только те сокеты, на которых есть доступные для чтения данные, остальные будут удалены.
     $newSocketArray = $clientSocketArray;
     $newSocketArray[] = $socket;
 
@@ -52,14 +53,12 @@ while(true) {
     // Ожидаем сокеты доступные для чтения 
     socket_select($newSocketArray, $nullA, $nullA, 0, 10);
 
-    if (in_array($socket, $newSocketArray)) { //есть новое соединение
-        echo "Есть \$socket в массиве \$newSocketArray\n";
+    // Если $socket не удалился из массива - есть новое соединение
+    if (in_array($socket, $newSocketArray)) {
 
         // Принимаем соединение на сокете
         $newSocket = socket_accept($socket);
         $clientSocketArray[] = $newSocket;
-
-        var_dump($clientSocketArray);
 
         unset($newSocketArray[array_search($socket, $newSocketArray)]);
 
@@ -70,13 +69,14 @@ while(true) {
         // Узнаем IP adress клиента
         socket_getpeername($newSocket, $client_ip_adress); 
         $connectionACK = $chat->newConnectionACK($client_ip_adress);
-
         $chat->send($connectionACK, $clientSocketArray);
 
-        /*Чистим массив $newSocketArray от отработанных сокетов*/
+        /* Чистим массив $newSocketArray от отработанных сокетов */
 
         // Находим индекс отработанного сокета 
         $newSocketArrayIndex = array_search($newSocket, $newSocketArray);
+
+        var_dump($newSocketArrayIndex);
 
         // Удаляем сокет из массива по найденному индексу
         unset($newSocketArray[$newSocketArrayIndex]);
