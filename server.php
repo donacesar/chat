@@ -52,9 +52,8 @@ while(true) {
     // Ожидаем сокеты доступные для чтения 
     socket_select($newSocketArray, $nullA, $nullA, 0, 10);
 
-    echo "socket_select отработал";
-
     if (in_array($socket, $newSocketArray)) { //есть новое соединение
+        echo "Есть \$socket в массиве \$newSocketArray\n";
 
         // Принимаем соединение на сокете
         $newSocket = socket_accept($socket);
@@ -87,7 +86,7 @@ while(true) {
         // 1
         // Проверяем количество поступивших байт (есть ли данные. Если есть - (> 1), нет - 0)в
         $dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
-        while( $dataSize) {
+        while($dataSize) {
 
             // костыль: при закрытии окна браузера клиента передается $dataSize = 8 байт
             if ($dataSize == 8) {
