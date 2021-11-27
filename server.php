@@ -60,6 +60,7 @@ while(true) {
         $newSocket = socket_accept($socket);
         $clientSocketArray[] = $newSocket;
 
+        // Чистим массив $newSocketArray от отработанных сокетов 
         unset($newSocketArray[array_search($socket, $newSocketArray)]);
 
         // принимаем заголовки клиента
@@ -71,20 +72,24 @@ while(true) {
         $connectionACK = $chat->newConnectionACK($client_ip_adress);
         $chat->send($connectionACK, $clientSocketArray);
 
+
+//-------------------------- Не нужный код --------------------------------------------
         /* Чистим массив $newSocketArray от отработанных сокетов */
 
         // Находим индекс отработанного сокета 
-        $newSocketArrayIndex = array_search($newSocket, $newSocketArray);
-
-        var_dump($newSocketArrayIndex);
+        //$newSocketArrayIndex = array_search($newSocket, $newSocketArray);
 
         // Удаляем сокет из массива по найденному индексу
-        unset($newSocketArray[$newSocketArrayIndex]);
+        //unset($newSocketArray[$newSocketArrayIndex]);
+
+//-------------------------------------------------------------------------------------
+        var_dump($newSocketArray);
     }
+
     foreach($newSocketArray as $newSocketArrayResource) {
         
         // 1
-        // Проверяем количество поступивших байт (есть ли данные. Если есть - (> 1), нет - 0)в
+        // Проверяем количество поступивших байт (есть ли данные. Если есть - (> 1), нет - 0)
         $dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
         while($dataSize) {
 
