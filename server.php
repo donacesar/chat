@@ -97,13 +97,13 @@ while(true) {
             if ($dataSize == 8) {
                 break;
             }
-            // Сообщение от клиента переводим обратно в JSON(unserialize) и декодируем
+            // Сообщение от клиента декодируем и переводим обратно в JSON(unserialize)
             $socketMessage = $chat->unseal($socketData);
             $messageObj = json_decode($socketMessage);
 
 
             // Проверяем ping клиента
-            if ($messageObj->chat_message === 'ping') {
+            /*if ($messageObj->chat_message === 'ping') {
                 echo "ping \n";
                 socket_getpeername($socket, $ip_address);
                 $chatMessage = $chat->createChatMessage($messageObj->chat_user, 'pong to ' . $ip_address);
@@ -112,7 +112,7 @@ while(true) {
                 $chat->send($chatMessage, $simArr);
 
                 break 2;
-            }
+            }*/
 
 
 
@@ -156,5 +156,6 @@ while(true) {
     
 }
 
-// Закрываем сокет для порядка 
+// Закрываем сокет для порядка
+// Не работает пока нет команды об остановке чат-сервера
 socket_close($socket);
