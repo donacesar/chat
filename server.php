@@ -71,19 +71,6 @@ while(true) {
         socket_getpeername($newSocket, $client_ip_adress); 
         $connectionACK = $chat->newConnectionACK($client_ip_adress);
         $chat->send($connectionACK, $clientSocketArray);
-
-
-//-------------------------- Не нужный код --------------------------------------------
-        /* Чистим массив $newSocketArray от отработанных сокетов */
-
-        // Находим индекс отработанного сокета 
-        //$newSocketArrayIndex = array_search($newSocket, $newSocketArray);
-
-        // Удаляем сокет из массива по найденному индексу
-        //unset($newSocketArray[$newSocketArrayIndex]);
-
-//-------------------------------------------------------------------------------------
-        var_dump($newSocketArray);
     }
 
     foreach($newSocketArray as $newSocketArrayResource) {
@@ -100,23 +87,6 @@ while(true) {
             // Сообщение от клиента декодируем и переводим обратно в JSON(unserialize)
             $socketMessage = $chat->unseal($socketData);
             $messageObj = json_decode($socketMessage);
-
-
-            // Проверяем ping клиента
-            /*if ($messageObj->chat_message === 'ping') {
-                echo "ping \n";
-                socket_getpeername($socket, $ip_address);
-                $chatMessage = $chat->createChatMessage($messageObj->chat_user, 'pong to ' . $ip_address);
-                $simArr = [];
-                $simArr[] = $newSocketArrayResource;
-                $chat->send($chatMessage, $simArr);
-
-                break 2;
-            }*/
-
-
-
-
 
             // Сообщение готовое к отправке пользователям
             $chatMessage = $chat->createChatMessage($messageObj->chat_user, $messageObj->chat_message);
@@ -137,20 +107,6 @@ while(true) {
             // В массиве сокетов клиентов ищем оборванный сокет и удаляем его
             $newSocketArrayIndex = array_search($newSocketArrayResource, $clientSocketArray);
             unset($clientSocketArray[$newSocketArrayIndex]);
-
-        
-        /*$socketData = socket_read($newSocketArrayResource, 1024, PHP_NORMAL_READ);
-        if($socketData === false) {
-            // получаем ip адрес пользователя, который вышел из сети 
-            socket_getpeername($newSocketArrayResource, $client_ip_address);
-            // создаем сообщение о выходе, чтобы потом разослать членам чата
-            $connectionACK = $chat->newDisconnectedACK($client_ip_address);
-            $chat->send($connectionACK, $clientSocketArray);
-
-            // В массиве сокетов клиентов ищем оборванный сокет и удаляем его
-            $newSocketArrayIndex = array_search($newSocketArrayResource, $clientSocketArray);
-            unset($clientSocketArray[$newSocketArrayIndex]);
-        }*/
     }
 
     
