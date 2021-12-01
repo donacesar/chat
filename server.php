@@ -101,7 +101,7 @@ while(true) {
                 break;
             }
             // Сообщение от клиента декодируем и переводим обратно в JSON(unserialize)
-            $socketMessage = $chat->unseal($allData);
+            $socketMessage = $chat->unseal($socketData);
             $messageObj = json_decode($socketMessage);
 
             // Сообщение готовое к отправке пользователям
