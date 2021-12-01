@@ -77,7 +77,16 @@ while(true) {
         
         // 1
         // Проверяем количество поступивших байт (есть ли данные. Если есть - (> 1), нет - 0)
-        $dataSize = socket_recv($newSocketArrayResource, $socketData, 256, 0);
+        //$dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
+
+        $allData = '';
+        while (socket_recv($newSocketArrayResource, $socketData, 1024, 0) >= 1) {
+            $allData .= $socketData;
+        }
+        $dataSize = strlen($allData);
+
+
+
         while($dataSize) {
 
             // костыль: при закрытии окна браузера клиента передается $dataSize = 8 байт
@@ -85,7 +94,7 @@ while(true) {
                 break;
             }
             // Сообщение от клиента декодируем и переводим обратно в JSON(unserialize)
-            $socketMessage = $chat->unseal($socketData);
+            $socketMessage = $chat->unseal($allData);
             $messageObj = json_decode($socketMessage);
 
             // Сообщение готовое к отправке пользователям
