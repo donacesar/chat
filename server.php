@@ -80,20 +80,10 @@ while(true) {
         $dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
 
 
-
-        while ($dataSize) {
-            $dataSize2 = socket_recv($newSocketArrayResource, $socketData2, 1024, 0);
-            if ($dataSize2) {
-                $socketData .= $socketData2;
-            }
-            break;
-        }
-
-
         var_dump($dataSize);
 
 
-
+        // Пока здесь while (планировался цикл для чтения нескольких фреймов)
         while($dataSize) {
 
             // костыль: при закрытии окна браузера клиента передается $dataSize = 8 байт
