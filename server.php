@@ -77,8 +77,7 @@ while(true) {
         
         // 1
         // Проверяем количество поступивших байт (есть ли данные. Если есть - (> 1), нет - 0)
-        $dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
-        while($dataSize) {
+        while(socket_recv($newSocketArrayResource, $socketData, 1024, 0) >= 1) {
 
             // костыль: при закрытии окна браузера клиента передается $dataSize = 8 байт
             if ($dataSize == 8) {
