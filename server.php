@@ -80,7 +80,8 @@ while(true) {
         $dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
 
         echo "\nПришло $dataSize байт\n";
-        echo $socketData;
+        $unpackArr = unpack('h', $socketData);
+        print_r($unpackArr);
 
         // Пока здесь while (планировался цикл для чтения нескольких фреймов)
         while($dataSize) {
