@@ -79,9 +79,8 @@ while(true) {
         // Проверяем количество поступивших байт (есть ли данные. Если есть - (> 1), нет - 0)
         $dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
 
-
-        var_dump($dataSize);
-
+        echo "\nПришло $dataSize байт\n";
+        echo $socketData;
 
         // Пока здесь while (планировался цикл для чтения нескольких фреймов)
         while($dataSize) {
