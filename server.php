@@ -77,13 +77,17 @@ while(true) {
         
         // 1
         // Проверяем количество поступивших байт (есть ли данные. Если есть - (> 1), нет - 0)
-        //$dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
+        $dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
 
-        $allData = '';
-        while ($dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0) >= 1) {
-            $allData .= $socketData;
+
+
+        while ($dataSize) {
+            $dataSize2 = socket_recv($newSocketArrayResource, $socketData2, 1024, 0);
+            if ($dataSize2) {
+                $socketData .= $socketData2;
+            }
+            break;
         }
-        $dataSize = strlen($allData);
 
 
         var_dump($dataSize);
