@@ -80,10 +80,13 @@ while(true) {
         //$dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
 
         $allData = '';
-        while (socket_recv($newSocketArrayResource, $socketData, 1024, 0) >= 1) {
+        while ($dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0) >= 1) {
             $allData .= $socketData;
         }
         $dataSize = strlen($allData);
+
+
+        var_dump($dataSize);
 
 
 
