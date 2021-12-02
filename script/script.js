@@ -6,7 +6,7 @@ function message(text) {
 	if ((messageNumbers%2) == 0) {
 		text = '<div class="chat-result">' + text + '</div>';		
 	} else {
-		text = '<div class="chat-result">' + text + '</div>';
+		text = '<div class="chat-result darker">' + text + '</div>';
 	}
 	//выводим в chat-result текст сообщения 
 	jQuery('#chat-wrapper').append(text);
