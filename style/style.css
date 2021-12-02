@@ -26,7 +26,7 @@ body {
 }
 
 .chat-message::after {
-	clesr: both;
+	clear: both;
 }
 
 .darker {
@@ -47,5 +47,5 @@ body {
     float: left;
     color: #999;
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 0.85%;
+    font-size: 50%;
 }
