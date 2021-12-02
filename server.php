@@ -79,29 +79,8 @@ while(true) {
         
         // 1
         // Проверяем количество поступивших байт (есть ли данные. Если есть - (> 1), нет - 0)
-        // $dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
+        $dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
 
-
-        // Собираем все куски в массив фреймов, клеим в строку
-        $framesArr = [];
-        $dataSize = 0;
-        while (true) {
-            $recvBytes = 0;
-            $recvBytes = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
-            echo $recvBytes . "\n";
-            if ($recvBytes == 40) {
-                break;
-            }
-            $dataSize += $recvBytes;
-            $framesArr[] = $socketData;
-            echo $recvBytes;
-        }
-        $socketData = implode('', $framesArr);
-
-
-        
-
-        echo "\nПришло $dataSize байт";
         
         // Пока здесь while (планировался цикл для чтения нескольких фреймов)
         while($dataSize) {
