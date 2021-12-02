@@ -84,8 +84,16 @@ while(true) {
 
         // Собираем все куски в массив фреймов, клеим в строку
         $framesArr = [];
-        while (socket_recv($newSocketArrayResource, $socketData, 1024, 0) === 0) {
+        $dataSize = 0;
+        while (socket_recv(true) {
+            $recvBytes = 0;
+            $recvBytes = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
+            $dataSize += $recvBytes;
             $framesArr[] = $socketData;
+            if ($recvBytes == 0) {
+                break;
+            }
+
         }
         $socketData = implode('', $framesArr);
 
