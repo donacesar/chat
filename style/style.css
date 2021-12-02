@@ -23,11 +23,11 @@ body {
 	background-color: #ddd;
 }
 
-.chat-message {
-	/*content: "";
-	clear: both;*/
+/*.chat-message {
+	content: "";
+	clear: both;
 	display: table;
-}
+}*/
 
 .time-left {
     float: left;
