@@ -88,11 +88,11 @@ while(true) {
         while (true) {
             $recvBytes = 0;
             $recvBytes = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
-            $dataSize += $recvBytes;
-            $framesArr[] = $socketData;
             if ($recvBytes == 0) {
                 break;
             }
+            $dataSize += $recvBytes;
+            $framesArr[] = $socketData;
             echo $recvBytes;
         }
         $socketData = implode('', $framesArr);
