@@ -7,7 +7,7 @@ let messageNumbers = {"value":0};
 function message(text, massageNumbers) {
 
 	if ((messageNumbers.value%2) == 0) {
-		text = '<div class="chat-result darker">' + text + '</div>';
+		text = '<div class="chat-result">' + text + '</div>';
 		console.log("Светлый");
 	} else {
 		text = '<div class="chat-result darker">' + text + '</div>';
