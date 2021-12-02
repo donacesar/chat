@@ -4,9 +4,11 @@
 function message(text) {
 
 	if ((messageNumbers%2) == 0) {
-		text = '<div class="chat-result">' + text + '</div>';		
+		text = '<div class="chat-result">' + text + '</div>';
+		console.log("Светлый");
 	} else {
 		text = '<div class="chat-result darker">' + text + '</div>';
+		console.log("Темный");
 	}
 	//выводим в chat-result текст сообщения 
 	jQuery('#chat-wrapper').append(text);
