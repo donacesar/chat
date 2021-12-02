@@ -85,7 +85,7 @@ while(true) {
         // Собираем все куски в массив фреймов, клеим в строку
         $framesArr = [];
         $dataSize = 0;
-        while (socket_recv(true) {
+        while (true) {
             $recvBytes = 0;
             $recvBytes = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
             $dataSize += $recvBytes;
