@@ -24,8 +24,8 @@ body {
 }
 
 .chat-message {
-	#content: "";
-	#clear: both;
+	/*content: "";
+	clear: both;*/
 	display: table;
 }
 
