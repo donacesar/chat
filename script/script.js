@@ -15,7 +15,7 @@ function message(text, massageNumbers) {
 	}
 	//выводим в chat-result текст сообщения 
 	jQuery('#chat-wrapper').append(text);
-	messagenumbers.value++;
+	messageNumbers.value++;
 	
 }
 
