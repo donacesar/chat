@@ -2,7 +2,7 @@
 
 // Блок для вывода информации на экран
 function message(text) {
-	text = '<div>' + text + '</div>';
+	text = '<div class="chat-result">' + text + '</div>';
 	//выводим в chat-result текст сообщения 
 	jQuery('#chat-result').append(text);
 }
