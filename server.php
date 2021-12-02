@@ -93,7 +93,7 @@ while(true) {
             if ($recvBytes == 0) {
                 break;
             }
-
+            echo $recvBytes;
         }
         $socketData = implode('', $framesArr);
 
