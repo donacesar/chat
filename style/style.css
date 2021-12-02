@@ -27,6 +27,7 @@ body {
 
 .chat-message::after {
 	clear: both;
+	display: table;
 }
 
 .darker {
