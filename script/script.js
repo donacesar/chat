@@ -9,9 +9,9 @@ function message(text, massageNumbers) {
 	let date = {'value': time.getHours()+":"+time.getMinutes()+":"+time.getSeconds()};
 
 	if ((messageNumbers.value%2) == 0) {
-		text = '<div class="chat-message">' + <img src="/../images/bandmember.jpg" alt="Avatar" style="width:100%;"> + '<p>' + text + '</p>' + '<span class="time-left">' + date.value + '</span>' + '</div>';
+		text = '<div class="chat-message">' + '<img src="/../images/bandmember.jpg" alt="Avatar" style="width:100%;">' + '<p>' + text + '</p>' + '<span class="time-left">' + date.value + '</span>' + '</div>';
 	} else {
-		text = '<div class="chat-message darker">' + <img src="/../mages/avatar_g2.jpg" alt="Avatar" style="width:100%;"> + '<p>' + text + '</p>' + '<span class="time-left">' + date.value + '</span>' + '</div>';
+		text = '<div class="chat-message darker">' + '<img src="/../mages/avatar_g2.jpg" alt="Avatar" style="width:100%;">' + '<p>' + text + '</p>' + '<span class="time-left">' + date.value + '</span>' + '</div>';
 	}
 	//выводим в chat-result текст сообщения 
 	jQuery('#chat-wrapper').append(text);
