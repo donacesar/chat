@@ -73,13 +73,27 @@ while(true) {
         $chat->send($connectionACK, $clientSocketArray);
     }
 
+
+
     foreach($newSocketArray as $newSocketArrayResource) {
         
         // 1
         // Проверяем количество поступивших байт (есть ли данные. Если есть - (> 1), нет - 0)
-        $dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
+        // $dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
 
-        echo "\nПришло $dataSize байт\n";
+
+        // Собираем все куски в массив фреймов, клеим в строку
+        $framesArr = [];
+        while (socket_recv($newSocketArrayResource, $socketData, 1024, 0)) {
+            $framesArr[] = $socketData;
+        }
+        $socketData = implode('', $framesArr);
+
+
+
+
+
+        echo "\nПришло $dataSize байт\nПкрвые 8 байт";
         $unpackArr = unpack('h8', $socketData);
         print_r($unpackArr);
 
