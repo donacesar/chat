@@ -1,17 +1,14 @@
 @font-face {
-	font-family: Cheque-Regular;
-	src: local('Cheque-Regular'),
-		url(/../fonts/Cheque-Regular.otf);
+	font-family: BeauRegular;
+	src: local('BeauRegular'),
+		url(/../fonts/BeauRegular.ttf);
 }
 
 body {
 	margin: 0 auto;
 	max-width: 800px;
 	padding: 0 20px;
-}
-
-h2 {
-	font-family: Cheque-Regular;
+	font-family: BeauRegular;
 }
 
 /*.chat-wrapper {
