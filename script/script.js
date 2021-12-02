@@ -1,10 +1,10 @@
 /* Клиент чата */
 
 // Блок для вывода информации на экран
-function message(text) {
+function message(text, &massageNumbers) {
 
 	if ((messageNumbers%2) == 0) {
-		text = '<div class="chat-result">' + text + '</div>';
+		text = '<div class="chat-result darker">' + text + '</div>';
 		console.log("Светлый");
 	} else {
 		text = '<div class="chat-result darker">' + text + '</div>';
@@ -12,6 +12,7 @@ function message(text) {
 	}
 	//выводим в chat-result текст сообщения 
 	jQuery('#chat-wrapper').append(text);
+	messagenumbers++;
 	
 }
 
@@ -50,7 +51,7 @@ jQuery(document).ready(function($) {
 	socket.onmessage = function(event) {
 		// Получаем данные в формате JSON и декодируем
 		let data = JSON.parse(event.data);
-		message(data.message);
+		message(data.message, messageNumbers);
 	};
 
 	// Обработчик отправки сообщения через форму
