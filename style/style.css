@@ -26,6 +26,7 @@ body {
 }
 
 .chat-message::after {
+	content: "";
 	clear: both;
 	display: table;
 }
