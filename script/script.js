@@ -4,7 +4,7 @@
 function message(text) {
 	text = '<div class="chat-result">' + text + '</div>';
 	//выводим в chat-result текст сообщения 
-	jQuery('#chat-result').append(text);
+	jQuery('#chat-wrapper').append(text);
 }
 
 
