@@ -5,13 +5,12 @@ let messageNumbers = {"value":0};
 
 // Блок для вывода информации на экран
 function message(text, massageNumbers) {
+	let date = {'value': new Date()};
 
 	if ((messageNumbers.value%2) == 0) {
-		text = '<div class="chat-result">' + text + '</div>';
-		console.log("Светлый");
+		text = '<div class="chat-message">' + '<p>' + text + '</p>' + '<span class="time-left">' + date.value + '</span>' + '</div>';
 	} else {
-		text = '<div class="chat-result darker">' + text + '</div>';
-		console.log("Темный");
+		text = '<div class="chat-message darker">' + text + '</p>' + '<span class="time-left">' + date.value + '</span>' + '</div>';
 	}
 	//выводим в chat-result текст сообщения 
 	jQuery('#chat-wrapper').append(text);

@@ -10,7 +10,7 @@ body {
 	padding: 20px;
 }*/
 
-.chat-result {
+.chat-message {
 	border: 2px solid #dedede;
     background-color: #f1f1f1;
     border-radius: 5px;
@@ -21,4 +21,15 @@ body {
 .darker {
 	border-color: #ccc;
 	background-color: #ddd;
-	}
+}
+
+.chat-message {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.time-left {
+    float: left;
+    color: #999;
+}
