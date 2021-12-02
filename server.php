@@ -88,6 +88,7 @@ while(true) {
         while (true) {
             $recvBytes = 0;
             $recvBytes = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
+            echo $recvBytes . "\n";
             if ($recvBytes == 0) {
                 break;
             }
