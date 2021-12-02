@@ -2,10 +2,18 @@
 
 // Блок для вывода информации на экран
 function message(text) {
-	text = '<div class="chat-result">' + text + '</div>';
+
+	if ((messageNumbers%2) == 0) {
+		text = '<div class="chat-result">' + text + '</div>';		
+	} else {
+		text = '<div class="chat-result">' + text + '</div>';
+	}
 	//выводим в chat-result текст сообщения 
 	jQuery('#chat-wrapper').append(text);
+	
 }
+
+let messageNumbers = 0;
 
 
 jQuery(document).ready(function($) {
