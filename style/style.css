@@ -1,3 +1,9 @@
+@font-face {
+	font-family: Cheque-Regular;
+	src: local('Cheque-Regular'),
+		url(/../fonts/Cheque-Regular.otf);
+}
+
 body {
 	margin: 0 auto;
 	max-width: 800px;
