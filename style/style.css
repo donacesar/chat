@@ -25,6 +25,10 @@ body {
     margin: 10px 0;
 }
 
+.chat-message::after {
+	clesr: both;
+}
+
 .darker {
 	border-color: #ccc;
 	background-color: #ddd;
