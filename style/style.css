@@ -10,6 +10,10 @@ body {
 	padding: 0 20px;
 }
 
+h2 {
+	font-family: Cheque-Regular;
+}
+
 /*.chat-wrapper {
 	border:  3px solid darkcyan;
 	border-radius: 10px;
