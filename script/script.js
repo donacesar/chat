@@ -1,9 +1,12 @@
 /* Клиент чата */
 
-// Блок для вывода информации на экран
-function message(text, &massageNumbers) {
+// Количество сообщений на странице
+let messageNumbers = {"value":0};
 
-	if ((messageNumbers%2) == 0) {
+// Блок для вывода информации на экран
+function message(text, massageNumbers) {
+
+	if ((messageNumbers.value%2) == 0) {
 		text = '<div class="chat-result darker">' + text + '</div>';
 		console.log("Светлый");
 	} else {
@@ -12,11 +15,11 @@ function message(text, &massageNumbers) {
 	}
 	//выводим в chat-result текст сообщения 
 	jQuery('#chat-wrapper').append(text);
-	messagenumbers++;
+	messagenumbers.value++;
 	
 }
 
-let messageNumbers = 0;
+
 
 
 jQuery(document).ready(function($) {
