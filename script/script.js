@@ -5,8 +5,8 @@ let messageNumbers = {"value":0};
 
 // Блок для вывода информации на экран
 function message(text, massageNumbers) {
-	let date = new Date();
-	let time = {'value': time.getHours()+":"+time.getMinutes()+":"+time.getSeconds()};
+	let time = new Date();
+	let date = {'value': time.getHours()+":"+time.getMinutes()+":"+time.getSeconds()};
 
 	if ((messageNumbers.value%2) == 0) {
 		text = '<div class="chat-message">' + '<p>' + text + '</p>' + '<span class="time-left">' + date.value + '</span>' + '</div>';
