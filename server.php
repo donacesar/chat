@@ -99,8 +99,7 @@ while(true) {
         $socketData = implode('', $framesArr);
 
 
-
-
+        
 
         echo "\nПришло $dataSize байт";
         
