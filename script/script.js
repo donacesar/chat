@@ -21,9 +21,9 @@ function message(text) {
         scrollTop: $(".end").offset().top  // класс объекта к которому приезжаем
     }, 1000); // Скорость прокрутки
 
-	const el = document.getElementById('end');
+	/*const el = document.getElementById('end');
 		el.scrollIntoView();
-		el.scrollIntoView(false);
+		el.scrollIntoView(false);*/
 	
 }
 
