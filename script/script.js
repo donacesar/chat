@@ -1,5 +1,9 @@
 /* Клиент чата */
 
+
+// Количество сообщений на странице
+let messageNumbers = {"value":0};
+
 // Блок для вывода информации на экран
 function message(text, messageNumbers) {
 	let time = new Date();
@@ -24,10 +28,6 @@ jQuery(document).ready(function($) {
 	// Открываем соединение с сервером
 	/* У сокета есть 4 коллбека (описаны ниже) */
 	let socket = new WebSocket("ws://192.168.2.165:8090/server.php");
-
-	let messageNumbers = {
-		'value': 0,
-	};
 
 	// Событие при соединении с сервером
 	socket.onopen = function() {
