@@ -55,6 +55,7 @@ jQuery(document).ready(function($) {
 		// Получаем данные в формате JSON и декодируем
 		let data = JSON.parse(event.data);
 		message(data.message, messageNumbers);
+		scrollToBottom();
 	};
 
 	// Обработчик отправки сообщения через форму
