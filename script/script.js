@@ -17,6 +17,10 @@ function message(text) {
 	jQuery('#chat-wrapper').append(text);
 	messageNumbers.value++;
 
+	$('html, body').animate({
+        scrollTop: $(".end").offset().top  // класс объекта к которому приезжаем
+    }, 1000); // Скорость прокрутки
+
 	const el = document.getElementById('end');
 		el.scrollIntoView();
 		el.scrollIntoView(false);
