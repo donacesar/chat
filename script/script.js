@@ -16,6 +16,10 @@ function message(text) {
 	//выводим в chat-result текст сообщения 
 	jQuery('#chat-wrapper').append(text);
 	messageNumbers.value++;
+
+	const el = document.getElementById('form');
+		el.scrollIntoView();
+		el.scrollIntoView(false);
 	
 }
 
@@ -55,9 +59,6 @@ jQuery(document).ready(function($) {
 		// Получаем данные в формате JSON и декодируем
 		let data = JSON.parse(event.data);
 		message(data.message, messageNumbers);
-		const el = document.getElementById('form');
-		el.scrollIntoView();
-		el.scrollIntoView(false);
 	};
 
 	// Обработчик отправки сообщения через форму
