@@ -25,7 +25,9 @@ jQuery(document).ready(function($) {
 	/* У сокета есть 4 коллбека (описаны ниже) */
 	let socket = new WebSocket("ws://192.168.2.165:8090/server.php");
 
-	let messageNumbers = 0;
+	let messageNumbers = {
+		'value': 0,
+	};
 
 	// Событие при соединении с сервером
 	socket.onopen = function() {
