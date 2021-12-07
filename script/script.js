@@ -17,7 +17,7 @@ function message(text) {
 	jQuery('#chat-wrapper').append(text);
 	messageNumbers.value++;
 
-	const el = document.getElementById('form');
+	const el = document.getElementById('end');
 		el.scrollIntoView();
 		el.scrollIntoView(false);
 	
