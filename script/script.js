@@ -1,7 +1,7 @@
 /* Клиент чата */
 
 // Блок для вывода информации на экран
-function message(text, massageNumbers) {
+function message(text, messageNumbers) {
 	let time = new Date();
 	let date = {'value': time.toLocaleTimeString()};
 
@@ -24,6 +24,8 @@ jQuery(document).ready(function($) {
 	// Открываем соединение с сервером
 	/* У сокета есть 4 коллбека (описаны ниже) */
 	let socket = new WebSocket("ws://192.168.2.165:8090/server.php");
+
+	let messageNumbers = 0;
 
 	// Событие при соединении с сервером
 	socket.onopen = function() {
