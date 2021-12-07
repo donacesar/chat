@@ -1,3 +1,6 @@
+@import "normalize.css";
+
+
 @font-face {
 	font-family: BeauRegular;
 	src: local('BeauRegular'),
