@@ -57,8 +57,9 @@ body {
 	box-shadow:  0 4px 16px #ccc;
 	font-family: sans-serif;
 	letter-spacing: 1px;
-	margin-bottom: 10px;
 }
 .form-input {
 	margin: 10px;
+	font-family: BeauRegular;
+	letter-spacing: 1px;
 }
