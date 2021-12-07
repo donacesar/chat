@@ -4,7 +4,7 @@
 let messageNumbers = {"value":0};
 
 // Блок для вывода информации на экран
-function message(text, messageNumbers) {
+function message(text) {
 	let time = new Date();
 	let date = {'value': time.toLocaleTimeString()};
 
