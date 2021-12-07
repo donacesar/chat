@@ -1,13 +1,9 @@
 /* Клиент чата */
 
-// Количество сообщений на странице
-let messageNumbers = {"value":0};
-
 // Блок для вывода информации на экран
 function message(text, massageNumbers) {
 	let time = new Date();
 	let date = {'value': time.toLocaleTimeString()};
-	//let date = {'value': time.getHours()+":"+time.getMinutes()+":"+time.getSeconds()};
 
 	if ((messageNumbers.value%2) == 0) {
 		text = '<div class="chat-message">' + '<img src="/../images/bandmember.jpg" alt="Avatar" style="width:100%;">' + '<p>' + text + '</p>' + '<span class="time-left">' + date.value + '</span>' + '</div>';
