@@ -23,6 +23,7 @@ body {
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0;
+    box-shadow:  0 4px 16px #ccc;
 }
 
 .chat-message::after {
