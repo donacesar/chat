@@ -58,3 +58,6 @@ body {
 	font-family: sans-serif;
 	letter-spacing: 1px;
 }
+.form-input {
+	margin: 10px;
+}
