@@ -66,5 +66,6 @@ body {
 .input {
 	font-family: BeauRegular;
 	letter-spacing: 1px;
+	border: 1px solid #ccc;
 	border-radius: 5px;
 }
