@@ -32,8 +32,8 @@ class Pid
 				$log->message('ok');
 			}
 		}
+	return false;
 	}
 
-	return false;
 
 }

@@ -8,7 +8,7 @@ use classes\Chat;
 use classes\Log;
 use classes\Pid;
 
-$chat = new \classes\Chat();
+$chat = new Chat();
 $log = new Log(LOG_HTML);
 $pid = new Pid(PID);
 
