@@ -3,8 +3,10 @@
 
 require_once __DIR__ . '/config.php';
 require __DIR__ . '/autoload.php';
-require_once __DIR__ . '/classes/Chat.php';
 
+use classes\Chat;
+use classes\Log;
+use classes\Pid;
 
 $chat = new Chat();
 $log = new Log(LOG_HTML);
