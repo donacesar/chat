@@ -2,7 +2,7 @@
 
 namespace classes;
 
-class Chat
+class Chat 
 {
 	public function sendHeaders($headersText, $newSocket, $host, $port ) {
 
