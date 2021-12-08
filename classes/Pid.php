@@ -25,7 +25,7 @@ class Pid
 				return true;
 			} else {
 				// Pid-файл есть, но процесса нет
-				if (!unlink($pid_file)) {
+				if (!unlink($this->pid_file)) {
 					$log->message('Ошибка. Не могу уничтожить pid-файл');
 					exit(1);
 				}
