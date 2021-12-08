@@ -7,6 +7,7 @@ require __DIR__ . '/autoload.php';
 use classes\Chat;
 use classes\Log;
 use classes\Pid;
+use classes\Socket;
 
 $chat = new Chat();
 $log = new Log(LOG_HTML);
