@@ -29,7 +29,7 @@ class Pid
 					$log->message('Ошибка. Не могу уничтожить pid-файл');
 					exit(1);
 				}
-				$log->message('ok');
+				$log->message('OK');
 			}
 		}
 	return false;

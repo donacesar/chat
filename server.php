@@ -13,7 +13,7 @@ $chat = new Chat();
 $log = new Log(LOG_HTML);
 $pid = new Pid(PID);
 
-$log->message('Пытаюсь запустить...');
+$log->message('Запуск процесса...');
 
 if ($pid->isActive()) {
    $log->message('CANCEL - чат уже запущен');
@@ -23,7 +23,7 @@ if ($pid->isActive()) {
 // Сохраняем PID в файл
 file_put_contents(PID, getmypid());
 
-$log->message('Пытаюсь запустить сокет...');
+$log->message('Запуск сокета...');
 
 $socket = new Socket(IP, PORT);
 
