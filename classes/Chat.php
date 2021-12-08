@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+namespace classes;
 
 class Chat
 {
@@ -138,6 +140,9 @@ class Chat
 	 		"type" => "newConnectionACK"
 	 	];
 	 	$ask = $this->seal(json_encode($messageArray));
+
+	 	$log = new Log(LOG_HTML);
+	 	$log->message($message);
 	 	return $ask;
 	 }
 }
