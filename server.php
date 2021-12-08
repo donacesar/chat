@@ -1,41 +1,33 @@
 <?php
-//определяем порт на каком будет работать сервер
-define('PORT', '8090');
+/* Файл, запускающий сокет-сервер чата. */
 
-require_once ('classes/Chat.php');
+require_once __DIR__ . '/config.php';
+require __DIR__ . '/autoload.php';
 
-// Переопределяем вывод 
-$logDir = __DIR__ . '/logs';
-ini_set('error_log', '/error_log');
-/*fclose(STDIN);
-fclose(STDOUT);
-fclose(STDERR);
-$STDIN = fopen('/dev/null', 'r');
-$STDOUT = fopen($logDir . '/output.log', 'a');
-$STDOUT = fopen($logDir . '/error.log', 'a');*/
+use classes\Chat;
+use classes\Log;
+use classes\Pid;
+use classes\Socket;
 
 $chat = new Chat();
+$log = new Log(LOG_HTML);
+$pid = new Pid(PID);
 
-/**
-  * Создаём сокет
-  * AF_INET - семейство адресов - IPv4
-  * SOCK_STREAM - тип сокета - передача потока данных с предварительной установкой соединения.
-  * SOL_TCP - протокол TCP
-*/
-$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+$log->message('Запуск процесса...');
 
-// Конфигурируем сокет: 
-// SOL_SOCKET - устанавливаем уровень протокола на уровне сокета
-// Опция SO_REUSEADDR - Сообщает, могут ли локальные адреса использоваться повторно. Разрешаем использовать один порт для нескольких соединений
-socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
+if ($pid->isActive()) {
+   $log->message('CANCEL - чат уже запущен');
+   exit(0);
+}
 
-// Привязываем используемый адрес и порт к сокету
-socket_bind($socket, '0.0.0.0', PORT);
+// Сохраняем PID в файл
+file_put_contents(PID, getmypid());
 
-//включаем прослушивание сокета
-socket_listen($socket);
+$log->message('Запуск сокета...');
 
-echo "Чат-сервер запущен\n";
+$socket = new Socket(IP, PORT);
+
+$log->message('Чат-сервер запущен');
 
 // Клиентов может подключиться много, по-этому создаем массив подключенных сокетов
 $clientSocketArray = array();
@@ -45,35 +37,9 @@ while(true) {
 
     // Каждую итерацию записываем мастер-сокет $socket в массив, т.к. После выполнения функции socket_select(), в этом массиве будут содержаться только те сокеты, на которых есть доступные для чтения данные, остальные будут удалены.
     $newSocketArray = $clientSocketArray;
-    $newSocketArray[] = $socket;
+    $newSocketArray[] = $socket->get_socket();
 
-    // Т.к. socket_select не принимает значения null, создаем пустой массив
-    // $write = $except = null;
-    $nullA = [];
-    // Ожидаем сокеты доступные для чтения 
-    socket_select($newSocketArray, $nullA, $nullA, 0, 10);
-
-    // Если $socket не удалился из массива - есть новое соединение
-    if (in_array($socket, $newSocketArray)) {
-
-        // Принимаем соединение на сокете
-        $newSocket = socket_accept($socket);
-        $clientSocketArray[] = $newSocket;
-
-        // Чистим массив $newSocketArray от отработанных сокетов 
-        unset($newSocketArray[array_search($socket, $newSocketArray)]);
-
-        // принимаем заголовки клиента
-        $header = socket_read($newSocket, 1024);
-        $chat->sendHeaders($header, $newSocket, "localhost", PORT);
-
-        // Узнаем IP adress клиента
-        socket_getpeername($newSocket, $client_ip_adress); 
-        $connectionACK = $chat->newConnectionACK($client_ip_adress);
-        $chat->send($connectionACK, $clientSocketArray);
-    }
-
-
+    $socket->new_connection($newSocketArray, $clientSocketArray);
 
     foreach($newSocketArray as $newSocketArrayResource) {
         
@@ -96,6 +62,14 @@ while(true) {
             // Сообщение готовое к отправке пользователям
             $chatMessage = $chat->createChatMessage($messageObj->chat_user, $messageObj->chat_message);
 
+            if ($messageObj->chat_message === 'OFF') {
+                $log = new Log(LOG_HTML);
+                $log->message('OFF - чат-сервер выключился');
+                unset($socket);
+                unlink(PID);
+                exit(0);
+            }
+
             $chat->send($chatMessage, $clientSocketArray);
 
             break 2;
@@ -116,7 +90,6 @@ while(true) {
 
     
 }
-
 // Закрываем сокет для порядка
-// Не работает пока нет команды об остановке чат-сервера
-socket_close($socket);
+unset($socket);
+unlink(PID);

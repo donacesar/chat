@@ -1,6 +1,8 @@
-<?php 
+<?php
 
-class Chat
+namespace classes;
+
+class Chat 
 {
 	public function sendHeaders($headersText, $newSocket, $host, $port ) {
 
@@ -138,6 +140,9 @@ class Chat
 	 		"type" => "newConnectionACK"
 	 	];
 	 	$ask = $this->seal(json_encode($messageArray));
+
+	 	$log = new Log(LOG_HTML);
+	 	$log->message($message);
 	 	return $ask;
 	 }
 }
