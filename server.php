@@ -9,7 +9,7 @@ $chat = new Chat();
 $log = new Log(LOG_HTML);
 $pid = new Pid(PID);
 
-$log->message('Пытаюсь запустить...')
+$log->message('Пытаюсь запустить...');
 
 if ($pid->isActive()) {
    $log->message('CANCEL - чат уже запущен');
