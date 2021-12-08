@@ -4,7 +4,7 @@ class Chat
 {
 	public function sendHeaders($headersText, $newSocket, $host, $port ) {
 
-		//делаем массив для заголовков формата "ключь: значение"
+		//делаем массив для заголовков формата "ключ: значение"
 		$headers = array();
 
 		// Пришедшую строку с заголовками разбиваем на строки по регулярке(перевод строки) и кладем в массив $tmpLine
@@ -38,7 +38,7 @@ class Chat
 
 	}
 
-	//Отрабатывает новое(первое) подключение
+	// Обрабатывает новое подключение
 	public function newConnectionACK($client_ip_adress) {
 	 	$message = "$client_ip_adress"." connected";
 	 	$messageArray = [

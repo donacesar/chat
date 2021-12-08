@@ -1,4 +1,72 @@
-.chat-result {
+@font-face {
+	font-family: BeauRegular;
+	src: local('BeauRegular'),
+		url(/../fonts/BeauRegular.ttf);
+}
+
+body {
+	margin: 0 auto;
+	max-width: 800px;
+	padding: 0 20px;
+	font-family: BeauRegular;
+}
+
+/*.chat-wrapper {
 	border:  3px solid darkcyan;
 	border-radius: 10px;
 	padding: 20px;
+}*/
+
+.chat-message {
+	border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.chat-message::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.darker {
+	border-color: #ccc;
+	background-color: #ddd;
+}
+
+.chat-message img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+
+.time-left {
+    float: left;
+    color: #999;
+    font-size: 75%;
+}
+
+.form {
+	padding: 32px;
+	border-radius: 10px;
+	box-shadow:  0 4px 16px #ccc;
+	font-family: BeauRegular;
+	letter-spacing: 1px;
+}
+.form-input {
+	margin: 10px;
+	font-family: BeauRegular;
+	letter-spacing: 1px;
+}
+.input {
+	font-family: BeauRegular;
+	letter-spacing: 1px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+}

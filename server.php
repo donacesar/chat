@@ -29,7 +29,7 @@ $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 // Опция SO_REUSEADDR - Сообщает, могут ли локальные адреса использоваться повторно. Разрешаем использовать один порт для нескольких соединений
 socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
 
-// Привязываем используемый порт к сокету
+// Привязываем используемый адрес и порт к сокету
 socket_bind($socket, '0.0.0.0', PORT);
 
 //включаем прослушивание сокета
@@ -38,12 +38,12 @@ socket_listen($socket);
 echo "Чат-сервер запущен\n";
 
 // Клиентов может подключиться много, по-этому создаем массив подключенных сокетов
-
 $clientSocketArray = array();
 
 // Создаем бесконечный цикл работы сервера
 while(true) {
 
+    // Каждую итерацию записываем мастер-сокет $socket в массив, т.к. После выполнения функции socket_select(), в этом массиве будут содержаться только те сокеты, на которых есть доступные для чтения данные, остальные будут удалены.
     $newSocketArray = $clientSocketArray;
     $newSocketArray[] = $socket;
 
@@ -53,12 +53,15 @@ while(true) {
     // Ожидаем сокеты доступные для чтения 
     socket_select($newSocketArray, $nullA, $nullA, 0, 10);
 
-    if (in_array($socket, $newSocketArray)) { //есть новое соединение
+    // Если $socket не удалился из массива - есть новое соединение
+    if (in_array($socket, $newSocketArray)) {
 
         // Принимаем соединение на сокете
         $newSocket = socket_accept($socket);
         $clientSocketArray[] = $newSocket;
-        unset($newSocketArray[array_search($socket, $newSocketArray )]);
+
+        // Чистим массив $newSocketArray от отработанных сокетов 
+        unset($newSocketArray[array_search($socket, $newSocketArray)]);
 
         // принимаем заголовки клиента
         $header = socket_read($newSocket, 1024);
@@ -67,34 +70,26 @@ while(true) {
         // Узнаем IP adress клиента
         socket_getpeername($newSocket, $client_ip_adress); 
         $connectionACK = $chat->newConnectionACK($client_ip_adress);
-
         $chat->send($connectionACK, $clientSocketArray);
-
-        /*Чистим массив $newSocketArray от отработанных сокетов*/
-
-        // Находим индекс отработанного сокета 
-        $newSocketArrayIndex = array_search($newSocket, $newSocketArray);
-
-        // Удаляем сокет из массива по найденному индексу
-        unset($newSocketArray[$newSocketArrayIndex]);
     }
+
+
 
     foreach($newSocketArray as $newSocketArrayResource) {
         
         // 1
-        // Проверяем есть ли данные. Если есть - (> 1), нет - 0
-        $data = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
-        echo ">>> ";
-        var_dump($data);
-        echo ">>> ";
-        var_dump($socketData);
-        while( $data) {
+        // Проверяем количество поступивших байт (есть ли данные. Если есть - (> 1), нет - 0)
+        $dataSize = socket_recv($newSocketArrayResource, $socketData, 1024, 0);
 
-            // костыль: при отключении клиента $data = 8
-            if ($data == 8) {
+        
+        // Пока здесь while (планировался цикл для чтения нескольких фреймов)
+        while($dataSize) {
+
+            // костыль: при закрытии окна браузера клиента передается $dataSize = 8 байт
+            if ($dataSize == 8) {
                 break;
             }
-            // Сообщение от клиента переводим обратно в JSON(unserialize) и декодируем
+            // Сообщение от клиента декодируем и переводим обратно в JSON(unserialize)
             $socketMessage = $chat->unseal($socketData);
             $messageObj = json_decode($socketMessage);
 
@@ -117,24 +112,11 @@ while(true) {
             // В массиве сокетов клиентов ищем оборванный сокет и удаляем его
             $newSocketArrayIndex = array_search($newSocketArrayResource, $clientSocketArray);
             unset($clientSocketArray[$newSocketArrayIndex]);
-        
-        
-        /*$socketData = socket_read($newSocketArrayResource, 1024, PHP_NORMAL_READ);
-        if($socketData === false) {
-            // получаем ip адрес пользователя, который вышел из сети 
-            socket_getpeername($newSocketArrayResource, $client_ip_address);
-            // создаем сообщение о выходе, чтобы потом разослать членам чата
-            $connectionACK = $chat->newDisconnectedACK($client_ip_address);
-            $chat->send($connectionACK, $clientSocketArray);
-
-            // В массиве сокетов клиентов ищем оборванный сокет и удаляем его
-            $newSocketArrayIndex = array_search($newSocketArrayResource, $clientSocketArray);
-            unset($clientSocketArray[$newSocketArrayIndex]);
-        }*/
     }
 
     
 }
 
-// Закрываем сокет для порядка 
+// Закрываем сокет для порядка
+// Не работает пока нет команды об остановке чат-сервера
 socket_close($socket);
